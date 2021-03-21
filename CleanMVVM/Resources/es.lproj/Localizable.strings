@@ -1,0 +1,15 @@
+/* 
+  Localizable.strings
+  App
+
+  Created by SOSA PEREZ Cesar on 19/03/2021.
+  
+*/
+
+"Posts" = "Posts";
+"Post Details" = "Detalle de Post";
+"Error" = "Error";
+"No internet connection" = "No tiene internet";
+"Failed loading posts" = "Error al cargar los posts";
+"Comments" = "Comentarios";
+"User" = "Usuario";
