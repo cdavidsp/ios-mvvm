@@ -50,8 +50,15 @@ app will call to API again and update local DB.
 ## Includes
 
 * [Unit Tests]
-* Unit Tests for Use Cases(Domain Layer), ViewModels(Presentation Layer), NetworkService(Infrastructure Layer)
+* Unit Tests for Use Cases(Domain Layer), ViewModels(Presentation Layer)
 * UI test with XCUITests
+
+## How to run the Demo?
+
+1. Clone this repo
+2. Open shell window and navigate to project folder
+3. Run `pod install`
+4. Open `CleanMVVM.xcworkspace`  and run / test the project
 
 ## Requirements
 
