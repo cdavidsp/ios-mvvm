@@ -6,12 +6,11 @@
 //
 
 import UIKit
+import Swinject
 
 @UIApplicationMain
 class AppDelegate: UIResponder, UIApplicationDelegate {
 
-    let appDIContainer = AppDIContainer()
-    var appFlowCoordinator: AppFlowCoordinator?
     var window: UIWindow?
     
     func application(_ application: UIApplication, didFinishLaunchingWithOptions launchOptions: [UIApplication.LaunchOptionsKey: Any]?) -> Bool {
@@ -22,9 +21,11 @@ class AppDelegate: UIResponder, UIApplicationDelegate {
         let navigationController = UINavigationController()
 
         window?.rootViewController = navigationController
-        appFlowCoordinator = AppFlowCoordinator(navigationController: navigationController,
-                                                appDIContainer: appDIContainer)
-        appFlowCoordinator?.start()
+        
+        if let postsViewController = Assembler.sharedAssembler.resolver.resolve(PostsTableViewController.self) {
+            navigationController.pushViewController(postsViewController, animated: true)
+        }
+        
         window?.makeKeyAndVisible()
     
         return true

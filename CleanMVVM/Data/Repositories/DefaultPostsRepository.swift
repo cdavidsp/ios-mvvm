@@ -9,12 +9,12 @@ import Foundation
 
 final class DefaultPostsRepository: BaseRepository {
 
-    private let dataTransferService: DataTransferService
     private let cache: PostsResponseStorage
+    private let api: PostNetworkProtocolRequest
 
-    init(dataTransferService: DataTransferService, cache: PostsResponseStorage) {
-        self.dataTransferService = dataTransferService
+    init(cache: PostsResponseStorage, api: PostNetworkProtocolRequest) {
         self.cache = cache
+        self.api = api
     }
 }
 
@@ -25,13 +25,10 @@ extension DefaultPostsRepository: PostsRepository {
         
         let task = RepositoryTask()
         
-        let endpoint = APIEndpoints.getPosts()
-        task.networkTask = self.dataTransferService.request(with: endpoint) { result in
-            switch result {
-            case .success(let responseDTO):
+        api.getAllPosts() { result in
+            
+            if case let .success(responseDTO?) = result {
                 completion(.success(responseDTO.map { $0.toDomain() }))
-            case .failure(let error):
-                completion(.failure(error))
             }
         }
         

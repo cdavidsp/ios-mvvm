@@ -10,7 +10,7 @@ import UIKit
 
 final class PostDetailsViewController: UIViewController, UITableViewDelegate, UITableViewDataSource, StoryboardInstantiable {
 
-
+    var post: Post? = nil
 
     @IBOutlet weak var titleLabel: UILabel!
     
@@ -27,7 +27,6 @@ final class PostDetailsViewController: UIViewController, UITableViewDelegate, UI
     
     @IBOutlet weak var userLoadingIndicator: UIActivityIndicatorView!
     
-    @IBOutlet weak var commentsLoadingIndicator: UIActivityIndicatorView!
     // MARK: - Lifecycle
 
     private var viewModel: PostDetailsViewModel!
@@ -49,6 +48,14 @@ final class PostDetailsViewController: UIViewController, UITableViewDelegate, UI
 
     private func bind(to viewModel: PostDetailsViewModel) {
         
+        
+        viewModel.post.observe(on: self) {
+            [weak self] values in
+            
+            self?.titleLabel.text = values?.title
+            self?.bodyLabel.text = values?.body
+        }
+        
         viewModel.user.observe(on: self) {
             [weak self] values in
             
@@ -60,35 +67,32 @@ final class PostDetailsViewController: UIViewController, UITableViewDelegate, UI
             self?.userContainer.isHidden = false
         }
         
-        
         viewModel.items.observe(on: self) { [weak self] items in
             self?.tableView.reloadData()
             self?.tableViewHeight.constant = CGFloat(items.count) * CommentsItemCell.height
-            self?.commentsLoadingIndicator.hidesWhenStopped = true
-            self?.commentsLoadingIndicator.stopAnimating()
             
-            self?.tableView.isHidden = false
         }
         
     }
     
     override func viewWillAppear(_ animated: Bool) {
         super.viewWillAppear(animated)
-        viewModel.updateUser()
-        viewModel.updateComments()
-        userContainer.isHidden = true
-        tableView.isHidden = true
         
-        userLoadingIndicator.startAnimating()
-        commentsLoadingIndicator.startAnimating()
+        if let postData = post {
+            
+            viewModel.updatePost(post: postData)
+            viewModel.updateUser(userId: postData.userId)
+            viewModel.updateComments(postId: postData.id)
+            userContainer.isHidden = true
+            
+            userLoadingIndicator.startAnimating()
+        }
     }
 
     // MARK: - Private
 
     private func setupViews() {
         title = "Post Details"
-        titleLabel.text = viewModel.title
-        bodyLabel.text = viewModel.body
         tableView.isScrollEnabled = false
         
         tableView.tableFooterView = UIView()

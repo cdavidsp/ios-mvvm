@@ -4,6 +4,8 @@
 <dict>
 	<key>ApiBaseURL</key>
 	<string>$(API_BASE_URL)</string>
+	<key>ApiSeconds</key>
+	<string>$(API_SECONDS)</string>
 	<key>CFBundleDevelopmentRegion</key>
 	<string>$(DEVELOPMENT_LANGUAGE)</string>
 	<key>CFBundleExecutable</key>

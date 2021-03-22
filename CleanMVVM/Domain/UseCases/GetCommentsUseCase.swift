@@ -29,7 +29,7 @@ final class DefaultGetCommentsUseCase: GetCommentsUseCase {
         
         let interval_time = currentTime - commentsRepository.getLastCall()
     
-        if (interval_time > AppConfiguration.timeInSeconds) {
+        if (interval_time > AppConfigurations.networkSecondsDelta) {
             
             return commentsRepository.fetchCommentsListAPI(completion: { result in
 

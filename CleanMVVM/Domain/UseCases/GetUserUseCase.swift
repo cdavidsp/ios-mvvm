@@ -27,7 +27,7 @@ final class DefaultGetUserUseCase: GetUserUseCase {
         
         let interval_time = currentTime - usersRepository.getLastCall()
     
-        if (interval_time > AppConfiguration.timeInSeconds) {
+        if (interval_time > AppConfigurations.networkSecondsDelta) {
             
             return usersRepository.fetchUsersListAPI(completion: { result in
 

@@ -1,6 +1,24 @@
-# iOS App using Clean Architecture and MVVM 
+# iOS App using Clean Architecture and MVVM
 
-iOS Project implemented with Clean Layered Architecture and MVVM. 
+Demo iOS app implemented with Clean Layered Architecture and MVVM that consume [3 endpoints]:
+
+- https://jsonplaceholder.typicode.com/posts
+- https://jsonplaceholder.typicode.com/users
+- https://jsonplaceholder.typicode.com/comments
+
+The app have two screens:
+
+- A first screen to present a list of posts.
+- A second screen presenting post details.
+
+The first time the app will get all data from API, and store that in a local DB,
+and register the timestamp of the last call per endpoint.
+
+The data in local DB will be active for 5 minutes, during this time if the user
+open one screen the app doesn't call to API.
+
+After the expiration of data(more of 5 minutes), if the user open one screen, the
+app will call to API again and update local DB.
 
 ## Layers
 
@@ -20,12 +38,13 @@ iOS Project implemented with Clean Layered Architecture and MVVM.
 * Advanced iOS App Architecture https://www.raywenderlich.com/8477-introducing-advanced-ios-app-architecture
 * [MVVM]
 * Data Binding using [Observable] without 3rd party libraries
-* [Dependency Injection]
-* [Flow Coordinator]
+* [Dependency Injection] with `Swinject`
+* [Networking] with `Alamofire`
 * [Data Transfer Object (DTO)]
 * [Response Data Caching]
 * [ViewController Lifecycle Behavior]
-* [SwiftUI and UIKit view] implementations by reusing same [ViewModel] (at least Xcode 11 required)
+* [UIKit view]
+* [ViewModel] (at least Xcode 11 required)
 * Error handling examples: in [ViewModel], in [Networking]
 
 ## Includes
@@ -33,8 +52,6 @@ iOS Project implemented with Clean Layered Architecture and MVVM.
 * [Unit Tests]
 * Unit Tests for Use Cases(Domain Layer), ViewModels(Presentation Layer), NetworkService(Infrastructure Layer)
 * UI test with XCUITests
-* Size Classes and UIStackView in Detail view
-* Dark Mode
 
 ## Requirements
 

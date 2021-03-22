@@ -9,13 +9,14 @@
 import Foundation
 
 protocol PostDetailsViewModelInput {
-    func updateUser()
-    func updateComments()
+    func updatePost(post: Post)
+    func updateUser(userId: Int)
+    func updateComments(postId: Int)
 }
 
 protocol PostDetailsViewModelOutput {
-    var title: String { get }
-    var body: String { get }
+    
+    var post: Observable<Post?> { get }
     var user: Observable<User?> { get }
     var items: Observable<[CommentsItemViewModel]> { get }
     
@@ -31,24 +32,16 @@ final class DefaultPostDetailsViewModel: PostDetailsViewModel {
     
     private let getCommentsUseCase: GetCommentsUseCase
     // MARK: - OUTPUT
-    let id: Int
-    let userId: Int
-    let title: String
+    let post: Observable<Post?> = Observable(nil)
     let user: Observable<User?> = Observable(nil)
-    let body: String
     
     private var userLoadTask: Cancellable? { willSet { userLoadTask?.cancel() } }
     private var commentsLoadTask: Cancellable? { willSet { commentsLoadTask?.cancel() } }
     
     
     
-    init(post: Post,
-         getUserUseCase: GetUserUseCase,
+    init(getUserUseCase: GetUserUseCase,
          getCommentsUseCase: GetCommentsUseCase) {
-        self.id = post.id
-        self.userId = post.userId
-        self.title = post.title ?? ""
-        self.body = post.body ?? ""
         self.getUserUseCase = getUserUseCase
         self.getCommentsUseCase = getCommentsUseCase
     }
@@ -57,7 +50,12 @@ final class DefaultPostDetailsViewModel: PostDetailsViewModel {
 // MARK: - INPUT. View event methods
 extension DefaultPostDetailsViewModel {
     
-    func updateUser() {
+    func updatePost(post: Post) {
+        
+        self.post.value = post
+    }
+    
+    func updateUser(userId: Int) {
         
         let completion: (Result<[User], Error>) -> Void = { result in
             switch result {
@@ -68,7 +66,7 @@ extension DefaultPostDetailsViewModel {
         }
         userLoadTask = getUserUseCase.execute(with: userId, completion: completion)
     }
-    func updateComments() {
+    func updateComments(postId: Int) {
         
         let completion: (Result<[Comment], Error>) -> Void = { result in
             switch result {
@@ -77,7 +75,7 @@ extension DefaultPostDetailsViewModel {
             case .failure: break
             }
         }
-        commentsLoadTask = getCommentsUseCase.execute(for: id, completion: completion)
+        commentsLoadTask = getCommentsUseCase.execute(for: postId, completion: completion)
     }
     private func updateItems(_ comments: [Comment]) {
        

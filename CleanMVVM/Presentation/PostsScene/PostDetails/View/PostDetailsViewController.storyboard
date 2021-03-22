@@ -13,12 +13,12 @@
         <scene sceneID="wNu-vz-AgM">
             <objects>
                 <viewController useStoryboardIdentifierAsRestorationIdentifier="YES" id="mrg-aK-cPW" customClass="PostDetailsViewController" customModule="CleanMVVM" customModuleProvider="target" sceneMemberID="viewController">
-                    <scrollView key="view" clipsSubviews="YES" multipleTouchEnabled="YES" contentMode="scaleToFill" id="qXn-QH-JJD">
+                    <scrollView key="view" clipsSubviews="YES" multipleTouchEnabled="YES" contentMode="scaleToFill" insetsLayoutMarginsFromSafeArea="NO" id="qXn-QH-JJD">
                         <rect key="frame" x="0.0" y="0.0" width="414" height="896"/>
                         <autoresizingMask key="autoresizingMask" flexibleMaxX="YES" flexibleMaxY="YES"/>
                         <subviews>
                             <view contentMode="scaleToFill" insetsLayoutMarginsFromSafeArea="NO" translatesAutoresizingMaskIntoConstraints="NO" id="RGj-Cb-blK">
-                                <rect key="frame" x="0.0" y="0.0" width="414" height="896"/>
+                                <rect key="frame" x="0.0" y="0.0" width="414" height="894"/>
                                 <subviews>
                                     <view contentMode="scaleToFill" translatesAutoresizingMaskIntoConstraints="NO" id="hxf-pZ-XRf">
                                         <rect key="frame" x="0.0" y="0.0" width="414" height="280"/>
@@ -145,9 +145,6 @@
                                                     <outlet property="delegate" destination="mrg-aK-cPW" id="due-p3-knS"/>
                                                 </connections>
                                             </tableView>
-                                            <activityIndicatorView opaque="NO" contentMode="scaleToFill" horizontalHuggingPriority="750" verticalHuggingPriority="750" style="medium" translatesAutoresizingMaskIntoConstraints="NO" id="wvN-Eo-Yrn">
-                                                <rect key="frame" x="197" y="362.66666666666669" width="20" height="20"/>
-                                            </activityIndicatorView>
                                         </subviews>
                                         <color key="backgroundColor" systemColor="systemBackgroundColor"/>
                                         <constraints>
@@ -164,18 +161,19 @@
                                             <constraint firstAttribute="trailing" secondItem="U2w-nD-Co5" secondAttribute="trailing" constant="22" id="PRK-gE-JQL"/>
                                             <constraint firstItem="972-bF-8NF" firstAttribute="top" secondItem="U2w-nD-Co5" secondAttribute="bottom" constant="6.6666666666666856" id="Qkt-ia-EFj"/>
                                             <constraint firstItem="ieu-FU-qFh" firstAttribute="top" secondItem="hxf-pZ-XRf" secondAttribute="top" constant="16" id="Rpy-Ra-gph"/>
+                                            <constraint firstAttribute="trailing" secondItem="UMD-pw-tPI" secondAttribute="trailing" id="SVd-88-cMB"/>
                                             <constraint firstItem="ieu-FU-qFh" firstAttribute="leading" secondItem="hxf-pZ-XRf" secondAttribute="leading" constant="16" id="bmt-3a-HrD"/>
-                                            <constraint firstItem="wvN-Eo-Yrn" firstAttribute="centerX" secondItem="hxf-pZ-XRf" secondAttribute="centerX" id="eb1-LL-isP"/>
                                             <constraint firstItem="U2w-nD-Co5" firstAttribute="leading" secondItem="hxf-pZ-XRf" secondAttribute="leading" constant="16" id="gDN-e8-WAm"/>
-                                            <constraint firstItem="UMD-pw-tPI" firstAttribute="centerX" secondItem="wvN-Eo-Yrn" secondAttribute="centerX" id="iR5-3G-3bI"/>
                                             <constraint firstItem="dKq-wD-SWX" firstAttribute="centerX" secondItem="hxf-pZ-XRf" secondAttribute="centerX" id="rN9-km-UT7"/>
                                             <constraint firstItem="UMD-pw-tPI" firstAttribute="top" secondItem="972-bF-8NF" secondAttribute="bottom" id="t0N-Kp-rbT"/>
                                             <constraint firstItem="972-bF-8NF" firstAttribute="leading" secondItem="hxf-pZ-XRf" secondAttribute="leading" constant="12" id="uzY-g1-GM0"/>
-                                            <constraint firstItem="wvN-Eo-Yrn" firstAttribute="top" secondItem="972-bF-8NF" secondAttribute="bottom" constant="80" id="ykX-BA-TjW"/>
                                         </constraints>
                                     </view>
                                 </subviews>
                                 <color key="backgroundColor" systemColor="systemBackgroundColor"/>
+                                <accessibility key="accessibilityConfiguration" identifier="AccessibilityIdentifierPostDetailsView">
+                                    <bool key="isElement" value="YES"/>
+                                </accessibility>
                                 <constraints>
                                     <constraint firstItem="hxf-pZ-XRf" firstAttribute="top" secondItem="RGj-Cb-blK" secondAttribute="top" id="Fz2-yn-Oi0"/>
                                     <constraint firstAttribute="trailing" secondItem="hxf-pZ-XRf" secondAttribute="trailing" id="rGU-nV-CqM"/>
@@ -183,22 +181,21 @@
                                 </constraints>
                             </view>
                         </subviews>
-                        <viewLayoutGuide key="safeArea" id="3XL-Hn-oRB"/>
+                        <viewLayoutGuide key="safeArea" id="sXY-Dy-zGX"/>
+                        <color key="backgroundColor" white="1" alpha="1" colorSpace="custom" customColorSpace="genericGamma22GrayColorSpace"/>
                         <constraints>
                             <constraint firstItem="RGj-Cb-blK" firstAttribute="leading" secondItem="qXn-QH-JJD" secondAttribute="leading" id="99Y-1o-jDB"/>
-                            <constraint firstItem="RGj-Cb-blK" firstAttribute="bottom" secondItem="3XL-Hn-oRB" secondAttribute="bottom" constant="2" id="Fhs-sK-b1x"/>
                             <constraint firstAttribute="bottom" secondItem="RGj-Cb-blK" secondAttribute="bottom" id="Ztw-TG-ORA"/>
                             <constraint firstAttribute="trailing" secondItem="RGj-Cb-blK" secondAttribute="trailing" id="czX-Bk-5Lc"/>
                             <constraint firstItem="RGj-Cb-blK" firstAttribute="top" secondItem="qXn-QH-JJD" secondAttribute="top" id="geG-Te-AzM"/>
                             <constraint firstItem="RGj-Cb-blK" firstAttribute="width" secondItem="qXn-QH-JJD" secondAttribute="width" id="iGE-xm-VAC"/>
-                            <constraint firstItem="3XL-Hn-oRB" firstAttribute="bottom" secondItem="UMD-pw-tPI" secondAttribute="bottom" id="rXi-ov-uAV"/>
+                            <constraint firstAttribute="bottom" secondItem="UMD-pw-tPI" secondAttribute="bottom" id="rXi-ov-uAV"/>
                         </constraints>
                     </scrollView>
                     <navigationItem key="navigationItem" id="fO7-ju-87H"/>
                     <simulatedNavigationBarMetrics key="simulatedTopBarMetrics" prompted="NO"/>
                     <connections>
                         <outlet property="bodyLabel" destination="faD-AB-1nL" id="kgw-1H-m7B"/>
-                        <outlet property="commentsLoadingIndicator" destination="wvN-Eo-Yrn" id="E3I-fQ-3J2"/>
                         <outlet property="tableView" destination="UMD-pw-tPI" id="VhF-8f-zSo"/>
                         <outlet property="tableViewHeight" destination="Trs-fx-240" id="27b-BO-TU2"/>
                         <outlet property="titleLabel" destination="ieu-FU-qFh" id="5Zg-ZJ-btF"/>

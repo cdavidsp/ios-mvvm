@@ -29,7 +29,7 @@ final class DefaultGetPostsUseCase: GetPostsUseCase {
         
         let interval_time = currentTime - postsRepository.getLastCall()
     
-        if (interval_time > AppConfiguration.timeInSeconds) {
+        if (interval_time > AppConfigurations.networkSecondsDelta) {
             
             return postsRepository.fetchPostsListAPI(completion: { result in
 

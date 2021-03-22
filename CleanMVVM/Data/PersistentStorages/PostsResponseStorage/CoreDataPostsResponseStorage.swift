@@ -15,10 +15,6 @@ final class CoreDataPostsResponseStorage {
     init(coreDataStorage: CoreDataStorage = CoreDataStorage.shared) {
         self.coreDataStorage = coreDataStorage
     }
-
-    // MARK: - Private
-
-
 }
 
 extension CoreDataPostsResponseStorage: PostsResponseStorage {
