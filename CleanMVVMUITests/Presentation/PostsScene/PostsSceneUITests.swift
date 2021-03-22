@@ -20,10 +20,9 @@ class PostsSceneUITests: XCTestCase {
         
         let app = XCUIApplication()
         
-        let searchText = "sunt aut facere repellat provident occaecati excepturi optio reprehenderit"
-        let postDetailsTitle = "Post Details"
+         let postDetailsTitle = "Post Details"
         // Tap on first result row
-        app.tables.cells.staticTexts[searchText].tap()
+        app.tables.cells.allElementsBoundByIndex.first?.tap()
         
         // Make sure post details view
         XCTAssertTrue(app.otherElements[AccessibilityIdentifier.postDetailsView].waitForExistence(timeout: 5))

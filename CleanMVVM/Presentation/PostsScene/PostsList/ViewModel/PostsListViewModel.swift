@@ -21,6 +21,7 @@ protocol PostsListViewModelInput {
 protocol PostsListViewModelOutput {
     
     var items: Observable<[PostsListItemViewModel]> { get }
+    var postSelected: Observable<Post?> { get }
 }
 
 protocol PostsListViewModel: PostsListViewModelInput, PostsListViewModelOutput { }
@@ -35,6 +36,8 @@ final class DefaultPostsListViewModel: PostsListViewModel {
     
     // MARK: - OUTPUT
     let items: Observable<[PostsListItemViewModel]> = Observable([])
+    
+    let postSelected: Observable<Post?> = Observable(nil)
     
     init(getPostsUseCase: GetPostsUseCase,
          actions: PostListViewModelActions? = nil) {
@@ -72,9 +75,9 @@ extension DefaultPostsListViewModel {
     
     func didSelect(item: PostsListItemViewModel) {
         
-        actions?.showPostDetails(Post(id: item.id,
+        postSelected.value = Post(id: item.id,
                                        userId: item.userId,
                                        title: item.title,
-                                       body: item.body))
+                                       body: item.body)
     }
 }

@@ -6,11 +6,22 @@
 //
 
 import UIKit
+import Swinject
 
 final class PostsTableViewController: UITableViewController, StoryboardInstantiable {
     
     private var viewModel: PostsListViewModel!
 
+    // MARK: - Public
+    func showPostsDetails(post: Post){
+        
+        if let postDetailsViewController = Assembler.sharedAssembler.resolver.resolve(PostDetailsViewController.self) {
+            postDetailsViewController.post = post
+            self.navigationController?.pushViewController(postDetailsViewController, animated: true)
+        }
+    }
+ 
+    
     // MARK: - Lifecycle
 
     static func create(with viewModel: PostsListViewModel) -> PostsTableViewController {
@@ -27,6 +38,14 @@ final class PostsTableViewController: UITableViewController, StoryboardInstantia
     
     private func bind(to viewModel: PostsListViewModel) {
         viewModel.items.observe(on: self) { [weak self] _ in self?.tableView.reloadData() }
+        
+        viewModel.postSelected.observe(on: self) {
+            [weak self] values in
+            
+            if let post = values {
+                self?.showPostsDetails(post: post)
+            }
+        }
     }
     
     override func viewWillAppear(_ animated: Bool) {

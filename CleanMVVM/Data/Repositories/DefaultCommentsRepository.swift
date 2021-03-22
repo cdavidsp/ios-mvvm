@@ -9,12 +9,12 @@ import Foundation
 
 final class DefaultCommentsRepository: BaseRepository {
 
-    private let dataTransferService: DataTransferService
     private let cache: CommentsResponseStorage
+    private let api: CommentNetworkProtocolRequest
 
-    init(dataTransferService: DataTransferService, cache: CommentsResponseStorage) {
-        self.dataTransferService = dataTransferService
+    init(cache: CommentsResponseStorage, api: CommentNetworkProtocolRequest) {
         self.cache = cache
+        self.api = api
     }
 }
 
@@ -24,18 +24,16 @@ extension DefaultCommentsRepository: CommentsRepository {
         
         let task = RepositoryTask()
         
-        let endpoint = APIEndpoints.getComments()
-        task.networkTask = self.dataTransferService.request(with: endpoint) { result in
-            switch result {
-            case .success(let responseDTO):
+        api.getAllComments() { result in
+            
+            if case let .success(responseDTO?) = result {
                 completion(.success(responseDTO.map { $0.toDomain() }))
-            case .failure(let error):
-                completion(.failure(error))
             }
         }
         
         return task
     }
+    
     
     
     func fetchCommentsListDB(for postId: Int, completion: @escaping (Result<[Comment], Error>) -> Void) -> Cancellable? {

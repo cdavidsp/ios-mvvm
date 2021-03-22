@@ -61,6 +61,7 @@ class PostDetailsViewModelTests: XCTestCase {
             return nil
         }
     }
+
     
     func test_whenPostDetailViewModelRetriveUserData_thenViewModelContainsUserFromUseCase() {
         // given
@@ -69,12 +70,11 @@ class PostDetailsViewModelTests: XCTestCase {
         let getUserUseCaseMock = GetUserUseCaseMock()
         getUserUseCaseMock.expectation = self.expectation(description: "contains data from use case")
         
-        let viewModel = DefaultPostDetailsViewModel(post: PostDetailsViewModelTests.post,
-                                                    getUserUseCase: getUserUseCaseMock,
+        let viewModel = DefaultPostDetailsViewModel(getUserUseCase: getUserUseCaseMock,
                                                     getCommentsUseCase: getCommentsUseCaseMock
                                                    )
         // when
-        viewModel.updateUser()
+        viewModel.updateUser(userId: PostDetailsViewModelTests.post.userId)
         
         // then
         waitForExpectations(timeout: 5, handler: nil)
@@ -91,11 +91,10 @@ class PostDetailsViewModelTests: XCTestCase {
         
         let getUserUseCaseMock = GetUserUseCaseMock()
        
-        let viewModel = DefaultPostDetailsViewModel(post: PostDetailsViewModelTests.post,
-                                                    getUserUseCase: getUserUseCaseMock,
+        let viewModel = DefaultPostDetailsViewModel(getUserUseCase: getUserUseCaseMock,
                                                     getCommentsUseCase: getCommentsUseCaseMock)
         // when
-        viewModel.updateComments()
+        viewModel.updateComments(postId: PostDetailsViewModelTests.post.id)
         
         // then
         waitForExpectations(timeout: 5, handler: nil)
